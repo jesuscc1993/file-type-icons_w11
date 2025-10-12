@@ -1,0 +1,161 @@
+{
+  "aac": {
+    "logo": "music",
+    "tint": "#2b9fd9",
+    "tintLogo": true,
+    "tint_alt": "#006698"
+  },
+  "ahk": {
+    "tint": "#723859"
+  },
+  "apk": {
+    "tint": "#3ddc84"
+  },
+  "bak": {
+    "tint": "#aaaaaa"
+  },
+  "bat": {
+    "tint": "#111111"
+  },
+  "cfg": {
+    "logo": "ini",
+    "tint": "#aaaaaa"
+  },
+  "conf": {
+    "logo": "ini",
+    "tint": "#aaaaaa"
+  },
+  "css": {
+    "tint": "#2eaade"
+  },
+  "csv": {
+    "tint": "#39a871"
+  },
+  "ct": {
+    "logo": "xml",
+    "tint": "#39a871"
+  },
+  "dll": {
+    "tint": "#afb9bd"
+  },
+  "flac": {
+    "logo": "music",
+    "tint": "#2b9fd9",
+    "tintLogo": true,
+    "tint_alt": "#222222"
+  },
+  "git": {
+    "tint": "#f05033"
+  },
+  "html": {
+    "tint": "#ef642a"
+  },
+  "inf": {
+    "logo": "ini",
+    "tint": "#aaaaaa"
+  },
+  "ini": {
+    "tint": "#aaaaaa"
+  },
+  "jar": {
+    "tint": "#5382a1"
+  },
+  "js": {
+    "tint": "#ffbb33"
+  },
+  "json": {
+    "tint": "#aaaaaa"
+  },
+  "jsx": {
+    "logo": "js",
+    "tint": "#ffbb33"
+  },
+  "less": {
+    "tint": "#274f81"
+  },
+  "log": {
+    "logo": "txt",
+    "tint": "#aaaaaa"
+  },
+  "lua": {
+    "tint": "#000080"
+  },
+  "md": {
+    "tint": "#000000"
+  },
+  "mp3": {
+    "logo": "music",
+    "tint": "#2b9fd9",
+    "tintLogo": true,
+    "tint_alt": "#5c8f99"
+  },
+  "nfo": {
+    "logo": "txt",
+    "tint": "#aaaaaa"
+  },
+  "ogg": {
+    "logo": "music",
+    "tint": "#2b9fd9",
+    "tintLogo": true,
+    "tint_alt": "#e82e2e"
+  },
+  "pdf": {
+    "tint": "#b30b00"
+  },
+  "ps1": {
+    "tint": "#4c85ea"
+  },
+  "py": {
+    "tint": "#346c99"
+  },
+  "pyw": {
+    "logo": "py",
+    "tint": "#346c99"
+  },
+  "rb": {
+    "tint": "#d62c15"
+  },
+  "reg": {
+    "tint": "#0f7fcd"
+  },
+  "sass": {
+    "tint": "#cd6799"
+  },
+  "scss": {
+    "logo": "sass",
+    "tint": "#cd6799"
+  },
+  "sh": {
+    "logo": "bat",
+    "tint": "#111111"
+  },
+  "srt": {
+    "logo": "mpc",
+    "tint": "#111111"
+  },
+  "ts": {
+    "tint": "#3178c6"
+  },
+  "tsx": {
+    "logo": "ts",
+    "tint": "#3178c6"
+  },
+  "txt": {
+    "tint": "#aaaaaa"
+  },
+  "wav": {
+    "logo": "music",
+    "tint": "#2b9fd9",
+    "tintLogo": true
+  },
+  "xml": {
+    "tint": "#39a871"
+  },
+  "yaml": {
+    "logo": "yml",
+    "tint": "#cb171e"
+  },
+  "yml": {
+    "tint": "#cb171e"
+  }
+}
