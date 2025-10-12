@@ -102,7 +102,10 @@ def generate_png():
       if 'LABEL_TEXT' in layer_config:
         text_x, baseline_y, text_font_size, text_color, text_font = layer_config['LABEL_TEXT']
         font = ImageFont.truetype(text_font, text_font_size)
-        text = f'.{type_key.lower()}' if layer_config.get('LOWERCASE') else type_key.upper()
+        if (data.get('text')):
+          text = data.get('text')
+        else:
+          text = f'.{type_key.lower()}' if layer_config.get('LOWERCASE') else type_key.upper()
 
         text_bbox = font.getbbox(text)
         text_width = text_bbox[2] - text_bbox[0]
