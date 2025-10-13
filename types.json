@@ -121,6 +121,10 @@
   "sass": {
     "tint": "#cd6799"
   },
+  "sav": {
+    "logo": "floppy",
+    "tint": "#111111"
+  },
   "scss": {
     "logo": "sass",
     "tint": "#cd6799"
