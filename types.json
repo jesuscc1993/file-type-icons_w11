@@ -23,7 +23,7 @@
     "tint": "#111111"
   },
   {
-    "extensions": ["cfg", "conf", "inf"],
+    "extensions": ["cfg", "conf", "inf", "ini"],
     "logo": "ini",
     "tint": "#aaaaaa"
   },
@@ -53,7 +53,7 @@
     "tint": "#ef642a"
   },
   {
-    "extensions": ["ini", "txt", "log", "nfo"],
+    "extensions": ["txt", "log", "nfo"],
     "logo": "txt",
     "tint": "#aaaaaa"
   },
