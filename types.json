@@ -99,6 +99,10 @@
     "tintLogo": true,
     "tint_alt": "#e82e2e"
   },
+  "otf": {
+    "logo": "font",
+    "tint": "#0f7fcd"
+  },
   "pdf": {
     "tint": "#b30b00"
   },
@@ -144,6 +148,10 @@
     "logo": "ts",
     "tint": "#3178c6"
   },
+  "ttf": {
+    "logo": "font",
+    "tint": "#0f7fcd"
+  },
   "txt": {
     "tint": "#aaaaaa"
   },
@@ -151,6 +159,14 @@
     "logo": "music",
     "tint": "#2b9fd9",
     "tintLogo": true
+  },
+  "woff": {
+    "logo": "font",
+    "tint": "#0f7fcd"
+  },
+  "woff2": {
+    "logo": "font",
+    "tint": "#0f7fcd"
   },
   "xml": {
     "tint": "#39a871"
