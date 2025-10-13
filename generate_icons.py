@@ -61,86 +61,84 @@ def generate_png():
   with open(base_dir / 'types.json') as f:
     types_data = json.load(f)
 
-  for type_key, data in types_data.items():
-    logo_name = data.get('logo') or type_key
-    tint_hex = data['tint']
-    tint_logo = data.get('tintLogo', False)
+  for item in types_data:
+    for extension in item['extensions']:
+      logo_name = item.get('logo') or extension
+      tint_hex = item['tint']
+      tint_logo = item.get('tintLogo', False)
 
-    logo_path = logos_dir / f'{logo_name}.png'
-    if not logo_path.exists():
-      print(f'Logo not found: {logo_path}')
-      continue
-
-    logo_img = Image.open(logo_path).convert('RGBA')
-    if tint_logo:
-      logo_img = tint_image(logo_img, tint_hex)
-
-    for size, layer_config in LAYER_CONFIGS.items():
-      sheet_file = layers_dir / f'sheet_{size}px.png'
-      if layer_config.get('SHEET') is False or not sheet_file.exists():
-        combined = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-      else:
-        combined = Image.open(sheet_file).convert('RGBA')
-
-      type_folder = png_output_dir / type_key
-      type_folder.mkdir(exist_ok = True)
-
-      file_name = type_folder / f'{size}px.png'
-
-      if 'LABEL' in layer_config:
-        label_path = layers_dir / f'label_{size}px.png'
-        if not label_path.exists():
-          print(f'Label image not found: {label_path}, skipping')
-          continue
-
-        label_img = Image.open(label_path).convert('RGBA')
-        label_img = tint_image(label_img.resize(combined.size, Image.Resampling.LANCZOS), tint_hex)
-        label_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
-        label_layer.paste(label_img, (0, 0), label_img)
-        combined = Image.alpha_composite(combined, label_layer)
-
-      if 'LABEL_TEXT' in layer_config:
-        text_x, baseline_y, text_font_size, text_color, text_font = layer_config['LABEL_TEXT']
-        font = ImageFont.truetype(text_font, text_font_size)
-        if (data.get('text')):
-          text = data.get('text')
-        else:
-          text = f'.{type_key.lower()}' if layer_config.get('LOWERCASE') else type_key.upper()
-
-        text_bbox = font.getbbox(text)
-        text_width = text_bbox[2] - text_bbox[0]
-        text_height = text_bbox[3] - text_bbox[1]
-
-        text_img = Image.new('RGBA', (text_width, text_height), (0, 0, 0, 0))
-        text_draw = ImageDraw.Draw(text_img)
-        text_draw.text((-text_bbox[0], -text_bbox[1]), text, fill = ImageColor.getrgb(text_color), font = font)
-
-        centered_text_x = text_x - text_img.width // 2
-        text_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
-        text_layer.alpha_composite(text_img, (centered_text_x, baseline_y + text_bbox[1]))
-        combined = Image.alpha_composite(combined, text_layer)
-
-      if 'LOGO' in layer_config:
-        centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
-        aspect_ratio = logo_img.width / logo_img.height
-
-        width = int(logo_size * aspect_ratio)
-        height = logo_size
-        if width > combined.width:
-          width = combined.width
-          height = int(width / aspect_ratio)
-        resized_logo = logo_img.resize((width, height), Image.Resampling.BILINEAR)
-
-        layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
-        logo_x = centered_logo_x - width // 2
-        logo_y = centered_logo_y - height // 2
-        layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
-        combined = Image.alpha_composite(combined, layer)
-
-      if os.path.exists(file_name):
+      logo_path = logos_dir / f'{logo_name}.png'
+      if not logo_path.exists():
+        print(f'Logo not found: {logo_path}')
         continue
-      combined.save(file_name)
-    print(f'Saved {type_folder}.')
+
+      logo_img = Image.open(logo_path).convert('RGBA')
+      if tint_logo:
+        logo_img = tint_image(logo_img, tint_hex)
+
+      for size, layer_config in LAYER_CONFIGS.items():
+        sheet_file = layers_dir / f'sheet_{size}px.png'
+        if layer_config.get('SHEET') is False or not sheet_file.exists():
+          combined = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+        else:
+          combined = Image.open(sheet_file).convert('RGBA')
+
+        type_folder = png_output_dir / extension
+        type_folder.mkdir(exist_ok = True)
+
+        file_name = type_folder / f'{size}px.png'
+
+        if 'LABEL' in layer_config:
+          label_path = layers_dir / f'label_{size}px.png'
+          if not label_path.exists():
+            print(f'Label image not found: {label_path}, skipping')
+            continue
+
+          label_img = Image.open(label_path).convert('RGBA')
+          label_img = tint_image(label_img.resize(combined.size, Image.Resampling.LANCZOS), tint_hex)
+          label_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          label_layer.paste(label_img, (0, 0), label_img)
+          combined = Image.alpha_composite(combined, label_layer)
+
+        if 'LABEL_TEXT' in layer_config:
+          text_x, baseline_y, text_font_size, text_color, text_font = layer_config['LABEL_TEXT']
+          font = ImageFont.truetype(text_font, text_font_size)
+          text = item.get('text') or (f'.{extension.lower()}' if layer_config.get('LOWERCASE') else extension.upper())
+
+          text_bbox = font.getbbox(text)
+          text_width = text_bbox[2] - text_bbox[0]
+          text_height = text_bbox[3] - text_bbox[1]
+
+          text_img = Image.new('RGBA', (text_width, text_height), (0, 0, 0, 0))
+          text_draw = ImageDraw.Draw(text_img)
+          text_draw.text((-text_bbox[0], -text_bbox[1]), text, fill = ImageColor.getrgb(text_color), font = font)
+
+          centered_text_x = text_x - text_img.width // 2
+          text_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          text_layer.alpha_composite(text_img, (centered_text_x, baseline_y + text_bbox[1]))
+          combined = Image.alpha_composite(combined, text_layer)
+
+        if 'LOGO' in layer_config:
+          centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
+          aspect_ratio = logo_img.width / logo_img.height
+
+          width = int(logo_size * aspect_ratio)
+          height = logo_size
+          if width > combined.width:
+            width = combined.width
+            height = int(width / aspect_ratio)
+          resized_logo = logo_img.resize((width, height), Image.Resampling.BILINEAR)
+
+          layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          logo_x = centered_logo_x - width // 2
+          logo_y = centered_logo_y - height // 2
+          layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
+          combined = Image.alpha_composite(combined, layer)
+
+        if os.path.exists(file_name):
+          continue
+        combined.save(file_name)
+      print(f'Saved {type_folder}.')
 
 def generate_ico():
   for folder in os.listdir(png_output_dir):

@@ -1,181 +1,136 @@
-{
-  "aac": {
-    "logo": "music",
-    "tint": "#2b9fd9",
-    "tintLogo": true,
-    "tint_alt": "#006698"
-  },
-  "ahk": {
-    "tint": "#723859"
-  },
-  "apk": {
-    "tint": "#3ddc84"
-  },
-  "bak": {
-    "tint": "#aaaaaa"
-  },
-  "bat": {
-    "tint": "#111111"
-  },
-  "cfg": {
-    "logo": "ini",
-    "tint": "#aaaaaa"
-  },
-  "conf": {
-    "logo": "ini",
-    "tint": "#aaaaaa"
-  },
-  "css": {
-    "tint": "#2eaade"
-  },
-  "csv": {
-    "tint": "#39a871"
-  },
-  "ct": {
-    "logo": "xml",
-    "tint": "#39a871"
-  },
-  "dll": {
-    "tint": "#afb9bd"
-  },
-  "flac": {
-    "logo": "music",
-    "tint": "#2b9fd9",
-    "tintLogo": true,
-    "tint_alt": "#222222"
-  },
-  "git": {
-    "tint": "#f05033"
-  },
-  "html": {
-    "tint": "#ef642a"
-  },
-  "inf": {
-    "logo": "ini",
-    "tint": "#aaaaaa"
-  },
-  "ini": {
-    "tint": "#aaaaaa"
-  },
-  "jar": {
-    "tint": "#5382a1"
-  },
-  "js": {
-    "tint": "#ffbb33"
-  },
-  "json": {
-    "tint": "#aaaaaa"
-  },
-  "jsx": {
-    "logo": "js",
-    "tint": "#ffbb33"
-  },
-  "less": {
-    "tint": "#274f81"
-  },
-  "log": {
-    "logo": "txt",
-    "tint": "#aaaaaa"
-  },
-  "lua": {
-    "tint": "#000080"
-  },
-  "md": {
-    "tint": "#000000"
-  },
-  "mp3": {
-    "logo": "music",
-    "tint": "#2b9fd9",
-    "tintLogo": true,
-    "tint_alt": "#5c8f99"
-  },
-  "nfo": {
-    "logo": "txt",
-    "tint": "#aaaaaa"
-  },
-  "ogg": {
-    "logo": "music",
-    "tint": "#2b9fd9",
-    "tintLogo": true,
-    "tint_alt": "#e82e2e"
-  },
-  "otf": {
-    "logo": "font",
-    "tint": "#0f7fcd"
-  },
-  "pdf": {
-    "tint": "#b30b00"
-  },
-  "ps1": {
-    "tint": "#4c85ea"
-  },
-  "py": {
-    "tint": "#346c99"
-  },
-  "pyw": {
-    "logo": "py",
-    "tint": "#346c99"
-  },
-  "rb": {
-    "tint": "#d62c15"
-  },
-  "reg": {
-    "tint": "#0f7fcd"
-  },
-  "sass": {
-    "tint": "#cd6799"
-  },
-  "sav": {
-    "logo": "floppy",
-    "tint": "#111111"
-  },
-  "scss": {
-    "logo": "sass",
-    "tint": "#cd6799"
-  },
-  "sh": {
-    "logo": "bat",
-    "tint": "#111111"
-  },
-  "srt": {
-    "logo": "mpc",
-    "tint": "#111111"
-  },
-  "ts": {
-    "tint": "#3178c6"
-  },
-  "tsx": {
-    "logo": "ts",
-    "tint": "#3178c6"
-  },
-  "ttf": {
-    "logo": "font",
-    "tint": "#0f7fcd"
-  },
-  "txt": {
-    "tint": "#aaaaaa"
-  },
-  "wav": {
+[
+  {
+    "extensions": ["aac", "flac", "mp3", "ogg", "wav"],
     "logo": "music",
     "tint": "#2b9fd9",
     "tintLogo": true
   },
-  "woff": {
-    "logo": "font",
-    "tint": "#0f7fcd"
+  {
+    "extensions": ["ahk"],
+    "tint": "#723859"
   },
-  "woff2": {
-    "logo": "font",
-    "tint": "#0f7fcd"
+  {
+    "extensions": ["apk"],
+    "tint": "#3ddc84"
   },
-  "xml": {
+  {
+    "extensions": ["bak"],
+    "tint": "#aaaaaa"
+  },
+  {
+    "extensions": ["bat", "sh"],
+    "logo": "bat",
+    "tint": "#111111"
+  },
+  {
+    "extensions": ["cfg", "conf", "inf"],
+    "logo": "ini",
+    "tint": "#aaaaaa"
+  },
+  {
+    "extensions": ["css"],
+    "tint": "#2eaade"
+  },
+  {
+    "extensions": ["csv"],
     "tint": "#39a871"
   },
-  "yaml": {
+  {
+    "extensions": ["ct", "xml"],
+    "logo": "xml",
+    "tint": "#39a871"
+  },
+  {
+    "extensions": ["dll"],
+    "tint": "#afb9bd"
+  },
+  {
+    "extensions": ["git"],
+    "tint": "#f05033"
+  },
+  {
+    "extensions": ["html"],
+    "tint": "#ef642a"
+  },
+  {
+    "extensions": ["ini", "txt", "log", "nfo"],
+    "logo": "txt",
+    "tint": "#aaaaaa"
+  },
+  {
+    "extensions": ["jar"],
+    "tint": "#5382a1"
+  },
+  {
+    "extensions": ["js", "jsx"],
+    "logo": "js",
+    "tint": "#ffbb33"
+  },
+  {
+    "extensions": ["json"],
+    "tint": "#aaaaaa"
+  },
+  {
+    "extensions": ["less"],
+    "tint": "#274f81"
+  },
+  {
+    "extensions": ["lua"],
+    "tint": "#000080"
+  },
+  {
+    "extensions": ["md"],
+    "tint": "#000000"
+  },
+  {
+    "extensions": ["otf", "ttf", "woff", "woff2"],
+    "logo": "font",
+    "tint": "#0f7fcd"
+  },
+  {
+    "extensions": ["pdf"],
+    "tint": "#b30b00"
+  },
+  {
+    "extensions": ["ps1"],
+    "tint": "#4c85ea"
+  },
+  {
+    "extensions": ["py", "pyw"],
+    "logo": "py",
+    "tint": "#346c99"
+  },
+  {
+    "extensions": ["rb"],
+    "tint": "#d62c15"
+  },
+  {
+    "extensions": ["reg"],
+    "tint": "#0f7fcd"
+  },
+  {
+    "extensions": ["sass", "scss"],
+    "logo": "sass",
+    "tint": "#cd6799"
+  },
+  {
+    "extensions": ["sav"],
+    "logo": "floppy",
+    "tint": "#111111"
+  },
+  {
+    "extensions": ["srt"],
+    "logo": "mpc",
+    "tint": "#111111"
+  },
+  {
+    "extensions": ["ts", "tsx"],
+    "logo": "ts",
+    "tint": "#3178c6"
+  },
+  {
+    "extensions": ["yaml", "yml"],
     "logo": "yml",
     "tint": "#cb171e"
-  },
-  "yml": {
-    "tint": "#cb171e"
   }
-}
+]
