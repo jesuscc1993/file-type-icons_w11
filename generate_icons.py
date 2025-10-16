@@ -6,28 +6,6 @@ import subprocess
 from pathlib import Path
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 
-# LAYER_CONFIGS = {
-#   16: {
-#     'LABEL': True,
-#     'LABEL_TEXT': (8, 10, 5, '#fff', '_fonts/3x5 MT Pixel.ttf')
-#   },
-#   # 32: {
-#   #   'LABEL': True,
-#   #   'LABEL_TEXT': (11, 5, 7, '#fff', 'segoeuib.ttf'),
-#   #   'LOGO': (16, 21, 16)
-#   # },
-#   48: {
-#     'LABEL': True,
-#     'LABEL_TEXT': (16, 8, 8, '#fff', 'segoeuib.ttf'),
-#     'LOGO': (24, 30, 22)
-#   },
-#   256: {
-#     'LABEL': True,
-#     'LABEL_TEXT': (87, 44, 42, '#fff', 'segoeuib.ttf'),
-#     'LOGO': (128, 160, 120)
-#   }
-# }
-
 LAYER_CONFIGS = {
   16: {
     'SHEET': False,
