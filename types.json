@@ -53,7 +53,7 @@
     "tint": "#ef642a"
   },
   {
-    "extensions": ["txt", "log", "nfo"],
+    "extensions": ["txt", "inc", "log", "nfo"],
     "logo": "txt",
     "tint": "#aaaaaa"
   },
