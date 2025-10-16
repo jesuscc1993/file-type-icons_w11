@@ -87,6 +87,8 @@ def generate_png():
         type_folder.mkdir(exist_ok = True)
 
         file_name = type_folder / f'{size}px.png'
+        if os.path.exists(file_name):
+          continue
 
         if 'LABEL' in layer_config:
           label_path = layers_dir / f'label_{size}px.png'
@@ -135,8 +137,6 @@ def generate_png():
           layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
           combined = Image.alpha_composite(combined, layer)
 
-        if os.path.exists(file_name):
-          continue
         combined.save(file_name)
       print(f'Saved {type_folder}.')
 
