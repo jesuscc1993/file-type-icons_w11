@@ -34,15 +34,19 @@ LAYER_CONFIGS = {
     'LOGO': (8, 8, 16),
   },
   48: {
-    'LABEL_TEXT': (22, 31, 10, '#555', 'segoeuib.ttf'),
-    'LOGO': (24, 24, 20),
-    'LOWERCASE': True
+    'LABEL_TEXT': (24, 32, 10, '#555', 'segoeuib.ttf'),
+    'LOGO': (24, 24, 20)
   },
   256: {
-    'LABEL_TEXT': (122, 172, 44, '#555', 'segoeuib.ttf'),
-    'LOGO': (128, 128, 104),
-    'LOWERCASE': True
+    'LABEL_TEXT': (128, 175, 44, '#555', 'segoeuib.ttf'),
+    'LOGO': (128, 128, 104)
   }
+}
+
+OVERWRITE = {
+  'LABEL': False,
+  'LABEL_TEXT': False,
+  'LOGO': False
 }
 
 base_dir = Path.cwd()
@@ -70,7 +74,6 @@ def generate_png():
       logo_path = logos_dir / f'{logo_name}.png'
       if not logo_path.exists():
         print(f'Logo not found: {logo_path}')
-        continue
 
       logo_img = Image.open(logo_path).convert('RGBA')
       if tint_logo:
@@ -87,10 +90,13 @@ def generate_png():
         type_folder.mkdir(exist_ok = True)
 
         file_name = type_folder / f'{size}px.png'
-        if os.path.exists(file_name):
-          continue
+        file_exists = os.path.exists(file_name)
+        if file_exists:
+          if not any(OVERWRITE.values()):
+            continue
+          combined = Image.open(file_name).convert('RGBA')
 
-        if 'LABEL' in layer_config:
+        if 'LABEL' in layer_config and (not file_exists or OVERWRITE['LABEL']):
           label_path = layers_dir / f'label_{size}px.png'
           if not label_path.exists():
             print(f'Label image not found: {label_path}, skipping')
@@ -102,7 +108,7 @@ def generate_png():
           label_layer.paste(label_img, (0, 0), label_img)
           combined = Image.alpha_composite(combined, label_layer)
 
-        if 'LABEL_TEXT' in layer_config:
+        if 'LABEL_TEXT' in layer_config and (not file_exists or OVERWRITE['LABEL_TEXT']):
           text_x, baseline_y, text_font_size, text_color, text_font = layer_config['LABEL_TEXT']
           font = ImageFont.truetype(text_font, text_font_size)
           text = item.get('text') or (f'.{extension.lower()}' if layer_config.get('LOWERCASE') else extension.upper())
@@ -113,6 +119,8 @@ def generate_png():
 
           text_img = Image.new('RGBA', (text_width, text_height), (0, 0, 0, 0))
           text_draw = ImageDraw.Draw(text_img)
+          if file_exists and OVERWRITE['LABEL_TEXT']:
+            text_draw.rectangle([0, 0, text_width, text_height], fill = (255, 255, 255, 255))
           text_draw.text((-text_bbox[0], -text_bbox[1]), text, fill = ImageColor.getrgb(text_color), font = font)
 
           centered_text_x = text_x - text_img.width // 2
@@ -120,7 +128,7 @@ def generate_png():
           text_layer.alpha_composite(text_img, (centered_text_x, baseline_y + text_bbox[1]))
           combined = Image.alpha_composite(combined, text_layer)
 
-        if 'LOGO' in layer_config:
+        if 'LOGO' in layer_config and (not file_exists or OVERWRITE['LOGO']):
           centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
           aspect_ratio = logo_img.width / logo_img.height
 
