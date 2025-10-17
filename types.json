@@ -145,6 +145,11 @@
     "tint": "#3178c6"
   },
   {
+    "extensions": ["vb"],
+    "logo": "vb",
+    "tint": "#8d57cb"
+  },
+  {
     "extensions": ["yaml", "yml"],
     "logo": "yml",
     "tint": "#cb171e"
