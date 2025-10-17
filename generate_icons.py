@@ -46,7 +46,7 @@ def generate_png():
   for item in types_data:
     for extension in item['extensions']:
       logo_name = item.get('logo') or extension
-      tint_hex = item['tint']
+      tint_hex = item.get('tint')
       tint_logo = item.get('tintLogo', False)
 
       logo_path = logos_dir / f'{logo_name}.png'
