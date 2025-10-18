@@ -18,7 +18,7 @@
     "tint": "#aaaaaa"
   },
   {
-    "extensions": ["bat", "sh"],
+    "extensions": ["bat", "cmd", "sh"],
     "logo": "bat",
     "tint": "#111111"
   },
