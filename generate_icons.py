@@ -30,14 +30,21 @@ OVERWRITE = {
 base_dir = Path.cwd()
 layers_dir = base_dir / '_layers'
 logos_dir = base_dir / '_logos'
-png_output_dir = base_dir / 'png'
-png_output_dir.mkdir(exist_ok = True)
-ico_output_dir = base_dir / 'ico'
-ico_output_dir.mkdir(exist_ok = True)
+
+png_dir = base_dir / 'png'
+png_dir.mkdir(exist_ok = True)
+ico_dir = base_dir / 'ico'
+ico_dir.mkdir(exist_ok = True)
+
+# textless_png_dir = png_dir / '_textless'
+# textless_png_dir.mkdir(exist_ok = True)
+# textless_ico_dir = ico_dir / '_textless'
+# textless_ico_dir.mkdir(exist_ok = True)
 
 def main():
   generate_png()
-  generate_ico()
+  generate_ico(png_dir, ico_dir)
+  generate_ico(textless_png_dir, textless_ico_dir)
 
 def generate_png():
   with open(base_dir / 'types.json') as f:
@@ -64,7 +71,7 @@ def generate_png():
         else:
           combined = Image.open(sheet_file).convert('RGBA')
 
-        type_folder = png_output_dir / extension
+        type_folder = png_dir / extension
         type_folder.mkdir(exist_ok = True)
 
         file_name = type_folder / f'{size}px.png'
@@ -73,6 +80,33 @@ def generate_png():
           if not any(OVERWRITE.values()):
             continue
           combined = Image.open(file_name).convert('RGBA')
+
+        if 'LOGO' in layer_config and (not file_exists or OVERWRITE['LOGO']):
+          centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
+          aspect_ratio = logo_img.width / logo_img.height
+
+          width = int(logo_size * aspect_ratio)
+          height = logo_size
+          if width > combined.width:
+            width = combined.width
+            height = int(width / aspect_ratio)
+          resized_logo = logo_img.resize((width, height), Image.Resampling.BILINEAR)
+
+          layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          logo_x = centered_logo_x - width // 2
+          logo_y = centered_logo_y - height // 2
+          layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
+          combined = Image.alpha_composite(combined, layer)
+
+        # textless_folder = textless_png_dir / logo_name
+        # textless_folder.mkdir(exist_ok = True)
+        # textless_file_name = textless_folder / f'{size}px.png'
+        # textless_file_exists = os.path.exists(textless_file_name)
+        # if not textless_file_exists:
+        #   textless_img = combined.copy()
+        #   combined_alpha = combined.split()[3]
+        #   textless_img.putalpha(combined_alpha)
+        #   textless_img.save(textless_file_name)
 
         if 'LABEL' in layer_config and (not file_exists or OVERWRITE['LABEL']):
           label_path = layers_dir / f'label_{size}px.png'
@@ -106,29 +140,13 @@ def generate_png():
           text_layer.alpha_composite(text_img, (centered_text_x, baseline_y + text_bbox[1]))
           combined = Image.alpha_composite(combined, text_layer)
 
-        if 'LOGO' in layer_config and (not file_exists or OVERWRITE['LOGO']):
-          centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
-          aspect_ratio = logo_img.width / logo_img.height
-
-          width = int(logo_size * aspect_ratio)
-          height = logo_size
-          if width > combined.width:
-            width = combined.width
-            height = int(width / aspect_ratio)
-          resized_logo = logo_img.resize((width, height), Image.Resampling.BILINEAR)
-
-          layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
-          logo_x = centered_logo_x - width // 2
-          logo_y = centered_logo_y - height // 2
-          layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
-          combined = Image.alpha_composite(combined, layer)
-
         combined.save(file_name)
+
       print(f'Saved {type_folder}.')
 
-def generate_ico():
-  for folder in os.listdir(png_output_dir):
-    folder_path = os.path.join(png_output_dir, folder)
+def generate_ico(src_dir, dest_dir):
+  for folder in os.listdir(src_dir):
+    folder_path = os.path.join(src_dir, folder)
     if not os.path.isdir(folder_path):
       continue
 
@@ -144,7 +162,7 @@ def generate_ico():
 
     images.sort(key=lambda x: x[0], reverse=True)
     image_files = [img[1] for img in images]
-    output_file = os.path.join(ico_output_dir, folder + '.ico')
+    output_file = os.path.join(dest_dir, folder + '.ico')
 
     subprocess.run(['magick', 'convert', *image_files, output_file])
     print(f'Saved {output_file}.')
