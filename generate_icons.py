@@ -36,10 +36,10 @@ png_dir.mkdir(exist_ok = True)
 ico_dir = base_dir / 'ico'
 ico_dir.mkdir(exist_ok = True)
 
-# textless_png_dir = png_dir / '_textless'
-# textless_png_dir.mkdir(exist_ok = True)
-# textless_ico_dir = ico_dir / '_textless'
-# textless_ico_dir.mkdir(exist_ok = True)
+textless_png_dir = png_dir / '_textless'
+textless_png_dir.mkdir(exist_ok = True)
+textless_ico_dir = ico_dir / '_textless'
+textless_ico_dir.mkdir(exist_ok = True)
 
 def main():
   generate_png()
