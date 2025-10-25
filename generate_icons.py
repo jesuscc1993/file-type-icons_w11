@@ -65,12 +65,6 @@ def generate_png():
         logo_img = tint_image(logo_img, tint_hex)
 
       for size, layer_config in LAYER_CONFIGS.items():
-        sheet_file = layers_dir / f'sheet_{size}px.png'
-        if layer_config.get('SHEET') is False or not sheet_file.exists():
-          combined = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-        else:
-          combined = Image.open(sheet_file).convert('RGBA')
-
         type_folder = png_dir / extension
         type_folder.mkdir(exist_ok = True)
 
@@ -80,6 +74,12 @@ def generate_png():
           if not any(OVERWRITE.values()):
             continue
           combined = Image.open(file_name).convert('RGBA')
+        else:
+          sheet_file = layers_dir / f'sheet_{size}px.png'
+          if layer_config.get('SHEET') is False or not sheet_file.exists():
+            combined = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+          else:
+            combined = Image.open(sheet_file).convert('RGBA')
 
         if 'LOGO' in layer_config and (not file_exists or OVERWRITE['LOGO']):
           centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
@@ -142,7 +142,7 @@ def generate_png():
 
         combined.save(file_name)
 
-      print(f'Saved {type_folder}.')
+      print(f'Processed {type_folder}.')
 
 def generate_ico(src_dir, dest_dir):
   for folder in os.listdir(src_dir):
