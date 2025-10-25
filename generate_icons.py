@@ -45,6 +45,7 @@ def main():
   generate_png()
   generate_ico(png_dir, ico_dir)
   generate_ico(textless_png_dir, textless_ico_dir)
+  input(f'Finished generating icons.')
 
 def generate_png():
   with open(base_dir / 'types.json') as f:
@@ -56,9 +57,21 @@ def generate_png():
       tint_hex = item.get('tint')
       tint_logo = item.get('tintLogo', False)
 
+      if not any(OVERWRITE.values()):
+        pending_files = False
+        for size in LAYER_CONFIGS.keys():
+          file_name = png_dir / extension / f'{size}px.png'
+          if not file_name.exists():
+            pending_files = True
+            break
+        if not pending_files:
+          print(f'Skipping "{extension}" extension as all PNG files already exist.')
+          continue
+
       logo_path = logos_dir / f'{logo_name}.png'
       if not logo_path.exists():
         print(f'Logo not found: {logo_path}')
+        continue
 
       logo_img = Image.open(logo_path).convert('RGBA')
       if tint_logo:
@@ -151,18 +164,23 @@ def generate_ico(src_dir, dest_dir):
       continue
 
     images = []
+    output_file = os.path.join(dest_dir, folder + '.ico')
+    output_exists = os.path.exists(output_file)
+    output_mtime = os.path.getmtime(output_file) if output_exists else 0
+
     for file in os.listdir(folder_path):
       match = re.match(r'(\d+)px\.png$', file)
       if match:
-        size = int(match.group(1))
-        images.append((size, os.path.join(folder_path, file)))
+        file_path = os.path.join(folder_path, file)
+        if not output_exists or os.path.getmtime(file_path) > output_mtime:
+          images.append((int(match.group(1)), file_path))
 
     if not images:
+      print(f'Skipping "{folder}" as PNG are unchanged.')
       continue
 
     images.sort(key=lambda x: x[0], reverse=True)
     image_files = [img[1] for img in images]
-    output_file = os.path.join(dest_dir, folder + '.ico')
 
     subprocess.run(['magick', 'convert', *image_files, output_file])
     print(f'Saved {output_file}.')
