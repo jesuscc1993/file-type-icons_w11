@@ -135,7 +135,7 @@
     "tint": "#3399db"
   },
   {
-    "extensions": ["srt"],
+    "extensions": ["ass", "srt"],
     "logo": "mpc",
     "tint": "#111111"
   },
