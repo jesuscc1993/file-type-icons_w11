@@ -22,6 +22,18 @@
     "tint": "#107c41"
   },
   {
+    "extensions": ["odt"],
+    "tint": "#185abd"
+  },
+  {
+    "extensions": ["odp"],
+    "tint": "#c43e1c"
+  },
+  {
+    "extensions": ["ods"],
+    "tint": "#107c41"
+  },
+  {
     "extensions": ["apk"],
     "tint": "#3ddc84"
   },
