@@ -10,6 +10,18 @@
     "tint": "#723859"
   },
   {
+    "extensions": ["docx"],
+    "tint": "#185abd"
+  },
+  {
+    "extensions": ["pptx"],
+    "tint": "#c43e1c"
+  },
+  {
+    "extensions": ["xslx"],
+    "tint": "#107c41"
+  },
+  {
     "extensions": ["apk"],
     "tint": "#3ddc84"
   },
