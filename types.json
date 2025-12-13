@@ -51,7 +51,8 @@
     "tint": "#39a871"
   },
   {
-    "extensions": ["dll"],
+    "extensions": ["asi", "dll"],
+    "logo": "dll",
     "tint": "#afb9bd"
   },
   {
