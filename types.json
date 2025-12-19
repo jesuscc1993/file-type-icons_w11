@@ -124,6 +124,11 @@
     "tint": "#0f7fcd"
   },
   {
+    "extensions": ["pak"],
+    "logo": "package",
+    "tint": "#785b46"
+  },
+  {
     "extensions": ["pdf"],
     "tint": "#b30b00"
   },
