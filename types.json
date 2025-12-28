@@ -88,6 +88,10 @@
     "tint": "#ef642a"
   },
   {
+    "extensions": ["ips"],
+    "tint": "#f64c47"
+  },
+  {
     "extensions": ["txt", "inc", "log", "nfo"],
     "logo": "txt",
     "tint": "#aaaaaa"
