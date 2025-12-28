@@ -128,7 +128,7 @@
     "tint": "#0f7fcd"
   },
   {
-    "extensions": ["pak"],
+    "extensions": ["pak", "pkg"],
     "logo": "package",
     "tint": "#785b46"
   },
