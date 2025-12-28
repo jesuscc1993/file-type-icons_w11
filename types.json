@@ -154,6 +154,10 @@
     "tint": "#0f7fcd"
   },
   {
+    "extensions": ["toml"],
+    "tint": "#9c4221"
+  },
+  {
     "extensions": ["sass", "scss"],
     "logo": "sass",
     "tint": "#cd6799"
