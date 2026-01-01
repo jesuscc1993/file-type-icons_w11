@@ -28,7 +28,7 @@ OVERWRITE = {
 }
 
 base_dir = Path.cwd()
-layers_dir = base_dir / '_layers'
+layers_dir = base_dir / '_layers/v1'
 logos_dir = base_dir / '_logos'
 
 png_dir = base_dir / 'png'
