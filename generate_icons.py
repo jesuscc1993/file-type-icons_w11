@@ -55,6 +55,7 @@ def generate_png():
     for extension in item['extensions']:
       logo_name = item.get('logo') or extension
       tint_hex = item.get('tint')
+      tall_logo = item.get('tallLogo', False)
       tint_logo = item.get('tintLogo', False)
 
       if not any(OVERWRITE.values()):
@@ -86,30 +87,32 @@ def generate_png():
         if file_exists:
           if not any(OVERWRITE.values()):
             continue
-          combined = Image.open(file_name).convert('RGBA')
+          output_img = Image.open(file_name).convert('RGBA')
         else:
           sheet_file = layers_dir / f'sheet_{size}px.png'
           if layer_config.get('SHEET') is False or not sheet_file.exists():
-            combined = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+            output_img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
           else:
-            combined = Image.open(sheet_file).convert('RGBA')
+            output_img = Image.open(sheet_file).convert('RGBA')
 
         if 'LOGO' in layer_config and (not file_exists or OVERWRITE['LOGO']):
           centered_logo_x, centered_logo_y, logo_size = layer_config['LOGO']
           aspect_ratio = logo_img.width / logo_img.height
 
-          width = int(logo_size * aspect_ratio)
-          height = logo_size
-          if width > combined.width:
-            width = combined.width
+          if tall_logo:
+            width = min(logo_size, output_img.width)
             height = int(width / aspect_ratio)
+          else:
+            height = min(logo_size, output_img.height)
+            width = int(height * aspect_ratio)
+
           resized_logo = logo_img.resize((width, height), Image.Resampling.BILINEAR)
 
-          layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          layer = Image.new('RGBA', output_img.size, (0, 0, 0, 0))
           logo_x = centered_logo_x - width // 2
           logo_y = centered_logo_y - height // 2
           layer.paste(resized_logo, (logo_x, logo_y), resized_logo)
-          combined = Image.alpha_composite(combined, layer)
+          output_img = Image.alpha_composite(output_img, layer)
 
         # textless_folder = textless_png_dir / logo_name
         # textless_folder.mkdir(exist_ok = True)
@@ -128,12 +131,12 @@ def generate_png():
             continue
 
           label_img = Image.open(label_path).convert('RGBA')
-          label_img = tint_image(label_img.resize(combined.size, Image.Resampling.LANCZOS), tint_hex)
-          label_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          label_img = tint_image(label_img.resize(output_img.size, Image.Resampling.LANCZOS), tint_hex)
+          label_layer = Image.new('RGBA', output_img.size, (0, 0, 0, 0))
           label_layer.paste(label_img, (0, 0), label_img)
-          combined = Image.alpha_composite(combined, label_layer)
+          output_img = Image.alpha_composite(output_img, label_layer)
 
-        if 'LABEL_TEXT' in layer_config and (not file_exists or OVERWRITE['LABEL_TEXT']):
+        if 'LABEL_TEXT' in layer_config and not tall_logo and (not file_exists or OVERWRITE['LABEL_TEXT']):
           text_x, baseline_y, text_font_size, text_color, text_font = layer_config['LABEL_TEXT']
           font = ImageFont.truetype(text_font, text_font_size)
           text = item.get('text') or (f'.{extension.lower()}' if layer_config.get('LOWERCASE') else extension.upper())
@@ -149,11 +152,11 @@ def generate_png():
           text_draw.text((-text_bbox[0], -text_bbox[1]), text, fill = ImageColor.getrgb(text_color), font = font)
 
           centered_text_x = text_x - text_img.width // 2
-          text_layer = Image.new('RGBA', combined.size, (0, 0, 0, 0))
+          text_layer = Image.new('RGBA', output_img.size, (0, 0, 0, 0))
           text_layer.alpha_composite(text_img, (centered_text_x, baseline_y + text_bbox[1]))
-          combined = Image.alpha_composite(combined, text_layer)
+          output_img = Image.alpha_composite(output_img, text_layer)
 
-        combined.save(file_name)
+        output_img.save(file_name)
 
       print(f'Processed {type_folder}.')
 
