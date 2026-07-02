@@ -115,6 +115,10 @@
     "tint": "#274f81"
   },
   {
+    "extensions": ["lock"],
+    "tint": "#ffc859"
+  },
+  {
     "extensions": ["lua"],
     "tint": "#000080"
   },
