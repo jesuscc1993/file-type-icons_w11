@@ -187,7 +187,7 @@
     "tint": "#3178c6"
   },
   {
-    "extensions": ["vb"],
+    "extensions": ["vb", "vbe", "vbs"],
     "logo": "vb",
     "tint": "#8d57cb"
   },
