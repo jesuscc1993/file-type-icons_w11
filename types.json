@@ -102,7 +102,7 @@
     "tint": "#5382a1"
   },
   {
-    "extensions": ["js", "jsx"],
+    "extensions": ["js", "jsx", "cjs", "mjs"],
     "logo": "js",
     "tint": "#ffbb33"
   },
@@ -182,7 +182,7 @@
     "tint": "#111111"
   },
   {
-    "extensions": ["ts", "tsx"],
+    "extensions": ["ts", "tsx", "cts", "mts"],
     "logo": "ts",
     "tint": "#3178c6"
   },

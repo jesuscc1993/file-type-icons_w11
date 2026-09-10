@@ -1,4 +1,5 @@
-*.bat
+*.lnk
 *.rar
 *.tif
+*.url
 *.zip
