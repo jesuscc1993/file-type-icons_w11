@@ -67,7 +67,8 @@
   },
   {
     "extensions": ["csv"],
-    "tint": "#39a871"
+    "tint": "#39a871",
+    "tintLogo": true
   },
   {
     "extensions": ["ct", "xml"],
@@ -94,7 +95,13 @@
   {
     "extensions": ["txt", "inc", "log", "nfo"],
     "logo": "txt",
-    "tint": "#aaaaaa"
+    "tint": "#aaaaaa",
+    "tintLogo": true
+  },
+  {
+    "extensions": ["lst"],
+    "tint": "#aaaaaa",
+    "tintLogo": true
   },
   {
     "extensions": ["class", "jar", "java"],
