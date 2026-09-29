@@ -69,7 +69,11 @@ def generate_png():
           print(f'Skipping "{extension}" extension as all PNG files already exist.')
           continue
 
-      logo_path = logos_dir / f'{logo_name}.png'
+      ext_logo_path = logos_dir / f'{extension}.png'
+      if ext_logo_path.exists():
+        logo_path = ext_logo_path
+      else:
+        logo_path = logos_dir / f'{logo_name}.png'
       if not logo_path.exists():
         print(f'Logo not found: {logo_path}')
         continue
