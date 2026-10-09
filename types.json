@@ -185,7 +185,7 @@
   },
   {
     "extensions": ["ass", "srt", "ssa", "vtt"],
-    "logo": "mpc",
+    "logo": "subtitles",
     "tint": "#111111"
   },
   {
